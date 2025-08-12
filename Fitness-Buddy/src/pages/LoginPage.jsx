@@ -5,16 +5,17 @@ const LoginPage = () => {
     return (
         <div className="loginpage-container">
             <form action="">
-                <h1> Fitness Buddy </h1>
                  <h2>Create your Account</h2>
                 <div class="input-box">
-                    <input type="text" placeholder="Username" ></input>
+                    <input type="text" placeholder="Username" required
+                    />
                     <i class="bx bxs-user"></i>
                 </div>
                 <div class="input-box">
                     <input type="password"
-                        placeholder="Password"></input>
-                    <i class="bx bxs=lock-alt"></i>
+                        placeholder="Password" required
+                    />
+                    <i class="bx bxs-lock-alt"></i>
                 </div>
                 <div class="rem-forgot">
                     <label>

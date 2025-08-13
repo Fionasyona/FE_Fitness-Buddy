@@ -1,0 +1,181 @@
+/* --- Main container for workout logging --- */
+.workout-logger {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+  background: linear-gradient(to bottom, #f8f9fa, #e6ecf0);
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+}
+
+/* Page Title */
+.workout-logger h1 {
+  text-align: center;
+  color: #2b6cb0;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* --- Summary section --- */
+.summary-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.summary-card {
+  background: white;
+  border: 2px solid #cbd5e0;
+  border-radius: 8px;
+  padding: 0.8rem;
+  min-width: 100px;
+  text-align: center;
+  flex: 1;
+}
+
+.summary-card p:first-child {
+  font-weight: bold;
+  color: #4a5568;
+}
+
+.summary-card p:last-child {
+  color: #2b6cb0;
+  font-size: 1.2rem;
+}
+
+/* --- Workout block --- */
+.workout-block {
+  background: #ffffff;
+  border: 2px solid #cbd5e0;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Header row with workout title & buttons */
+.workout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.workout-header h2 {
+  color: #2b6cb0;
+  font-size: 1.3rem;
+}
+
+.workout-header input {
+  font-size: 1.1rem;
+  padding: 0.3rem;
+}
+
+/* Buttons inside workout header */
+.workout-header button {
+  margin-left: 0.3rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.edit-btn:hover { color: #3182ce; }
+.save-btn:hover { color: #38a169; }
+.delete-btn:hover { color: #e53e3e; }
+
+/* --- Set row --- */
+.set-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto auto;
+  align-items: center;
+  padding: 0.3rem;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.set-row div {
+  text-align: center;
+}
+
+/* Status colors */
+.label-warmup {
+  color: #dd6b20;
+  font-weight: bold;
+}
+
+.label-completed {
+  color: #38a169;
+  font-weight: bold;
+}
+
+.label-failed {
+  color: #e53e3e;
+  font-weight: bold;
+}
+
+/* --- Add set form --- */
+.add-set-form {
+  margin-top: 0.8rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.add-set-form input {
+  flex: 1;
+  padding: 0.3rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
+}
+
+.add-set-form button {
+  background: #38a169;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+}
+
+.add-set-form button:hover {
+  background: #2f855a;
+}
+
+/* --- Add workout button --- */
+.add-workout-btn {
+  display: block;
+  margin: 1rem auto;
+  background: #2b6cb0;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.add-workout-btn:hover {
+  background: #2c5282;
+}
+
+/* --- Responsive tweaks --- */
+@media (max-width: 600px) {
+  .summary-container {
+    flex-direction: column;
+  }
+
+  .set-row {
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 0.4rem;
+  }
+
+  .add-set-form {
+    flex-direction: column;
+  }
+
+  .add-set-form input,
+  .add-set-form button {
+    width: 100%;
+  }
+}

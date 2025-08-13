@@ -1,4 +1,3 @@
-/* --- Main container for workout logging --- */
 .workout-logger {
   max-width: 900px;
   margin: 0 auto;
@@ -8,7 +7,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* Page Title */
 .workout-logger h1 {
   text-align: center;
   color: #2b6cb0;
@@ -17,7 +15,6 @@
   font-weight: bold;
 }
 
-/* --- Summary section --- */
 .summary-container {
   display: flex;
   justify-content: space-around;
@@ -46,7 +43,6 @@
   font-size: 1.2rem;
 }
 
-/* --- Workout block --- */
 .workout-block {
   background: #ffffff;
   border: 2px solid #cbd5e0;
@@ -55,7 +51,6 @@
   margin-bottom: 1rem;
 }
 
-/* Header row with workout title & buttons */
 .workout-header {
   display: flex;
   justify-content: space-between;
@@ -73,7 +68,6 @@
   padding: 0.3rem;
 }
 
-/* Buttons inside workout header */
 .workout-header button {
   margin-left: 0.3rem;
   border: none;
@@ -86,7 +80,6 @@
 .save-btn:hover { color: #38a169; }
 .delete-btn:hover { color: #e53e3e; }
 
-/* --- Set row --- */
 .set-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr auto auto;
@@ -99,7 +92,6 @@
   text-align: center;
 }
 
-/* Status colors */
 .label-warmup {
   color: #dd6b20;
   font-weight: bold;
@@ -115,7 +107,7 @@
   font-weight: bold;
 }
 
-/* --- Add set form --- */
+
 .add-set-form {
   margin-top: 0.8rem;
   display: flex;
@@ -142,7 +134,6 @@
   background: #2f855a;
 }
 
-/* --- Add workout button --- */
 .add-workout-btn {
   display: block;
   margin: 1rem auto;
@@ -159,7 +150,71 @@
   background: #2c5282;
 }
 
-/* --- Responsive tweaks --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 0.7rem 2rem;
+  position: relative;
+}
+
+.logo {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #ff9800;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: #333;
+    flex-direction: column;
+    width: 200px;
+    display: none;
+    padding: 1rem;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    margin-bottom: 1rem;
+  }
+}
+
+
 @media (max-width: 600px) {
   .summary-container {
     flex-direction: column;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/LogWorkout.css"; // Scoped styles for this page
+import "../styles/LogWorkout.css";
 
 function LogWorkoutPage() {
   const [workoutList, setWorkoutList] = useState([

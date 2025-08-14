@@ -1,0 +1,115 @@
+/* Container for the whole page */
+.search-page-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Navbar styles */
+.SearchPage-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1e293b;
+  padding: 10px 20px;
+  color: white;
+}
+
+.logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Menu icon (for mobile) */
+.menu-icon {
+  display: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+/* Navigation links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links li a:hover {
+  color: #38bdf8;
+}
+
+/* Search title */
+.title {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 2rem;
+}
+
+/* Search input */
+.search-input {
+  display: block;
+  margin: 20px auto;
+  padding: 10px;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* Grid for exercises */
+.grid-container {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-top: 20px;
+}
+
+/* Exercise card */
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.card-muscle {
+  color: gray;
+}
+
+/* No results message */
+.no-results {
+  text-align: center;
+  font-style: italic;
+  color: #ef4444;
+}
+
+/* Responsive navbar for small screens */
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block;
+  }
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #1e293b;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  .nav-links.active {
+    display: flex;
+  }
+}

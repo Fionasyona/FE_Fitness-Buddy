@@ -1,46 +1,24 @@
 import React, { useState } from "react";
-import "../styles/SearchPage.css";
+import "../styles/SearchPage.css"; // Import the CSS for this page only
 
-// Example exercise data
+// Example exercise data 
 const exercisesData = [
-    {
-        id: 1,
-        name: "Push Up",
-        muscle: "Chest"
-    },
-    {
-        id: 2,
-        name: "Squat",
-        muscle: "Legs"
-    },
-    {
-        id: 3,
-        name: "Plank",
-        muscle: "Core"
-    },
-    {
-        id: 4,
-        name: "Bicep Curl",
-        muscle: "Arms"
-    },
-    {
-        id: 5,
-        name: "Lunges",
-        muscle: "Legs"
-    },
-    {
-        id: 6,
-        name: "Shoulder Press",
-        muscle: "Shoulders"
-    },
+  { id: 1, name: "Push Up", muscle: "Chest" },
+  { id: 2, name: "Squat", muscle: "Legs" },
+  { id: 3, name: "Plank", muscle: "Core" },
+  { id: 4, name: "Bicep Curl", muscle: "Arms" },
+  { id: 5, name: "Lunges", muscle: "Legs" },
+  { id: 6, name: "Shoulder Press", muscle: "Shoulders" },
 ];
 
 export default function SearchPage() {
-  // State to store the search input value
-    const [query, setQuery] = useState("");
-    const [menuOpen, setMenuOpen] = useState(false);
+  // State for storing what the user types
+  const [query, setQuery] = useState("");
 
-  // Filter the list of exercises based on the search query
+  // State for mobile menu toggle
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Filter exercises based on search query
   const filteredExercises = exercisesData.filter(
     (exercise) =>
       exercise.name.toLowerCase().includes(query.toLowerCase()) ||
@@ -48,12 +26,17 @@ export default function SearchPage() {
   );
 
   return (
-    <div className="container">
+    <div className="search-page-container">
+      {/* Navbar */}
       <nav className="navbar SearchPage-navbar">
         <div className="logo">🏋️ MyFitnessApp</div>
-        <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
+
+        {/* Mobile menu icon */}
+        <div className="menu-icon" onClick={() => setMenuOpen((prev) => !prev)}>
           ☰
         </div>
+
+        {/* Navigation links */}
         <ul className={`nav-links ${menuOpen ? "active" : ""}`}>
           <li>
             <a href="/">Home</a>
@@ -62,17 +45,18 @@ export default function SearchPage() {
             <a href="/LoginPage">Login</a>
           </li>
           <li>
-            <a href="/LogWorkoutPage">LogWorkout</a>
+            <a href="/LogWorkoutPage">Log Workout</a>
           </li>
           <li>
-            <a href="/Progresspage">Progress</a>
+            <a href="/ProgressPage">Progress</a>
           </li>
           <li>
             <a href="/ProfilePage">Profile</a>
           </li>
         </ul>
       </nav>
-      {/* Title */}
+
+      {/* Page title */}
       <h1 className="title">Search Exercises</h1>
 
       {/* Search bar */}
@@ -80,14 +64,13 @@ export default function SearchPage() {
         type="text"
         placeholder="Search by name or muscle group..."
         value={query}
-        onChange={(e) => setQuery(e.target.value)} // Update query when typing
+        onChange={(e) => setQuery(e.target.value)}
         className="search-input"
       />
 
-      {/* Display results */}
+      {/* Display search results */}
       <div className="grid-container">
         {filteredExercises.length > 0 ? (
-          // Loop through filtered exercises and display them
           filteredExercises.map((exercise) => (
             <div key={exercise.id} className="card">
               <h2 className="card-title">{exercise.name}</h2>
@@ -95,7 +78,6 @@ export default function SearchPage() {
             </div>
           ))
         ) : (
-          // If no exercises match, show a message
           <p className="no-results">No exercises found for "{query}"</p>
         )}
       </div>

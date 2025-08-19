@@ -52,7 +52,7 @@ function ProfilePage() {
 
       {/* ✅ Profile Section */}
       <div className="profile-header">
-        <h2>John Doe</h2>
+        <h2>Agnes</h2>
         <p>Fitness Enthusiast</p>
       </div>
 

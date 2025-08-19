@@ -1,0 +1,189 @@
+/* General Profile Page */
+.profile-page {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fa;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2d3748;
+  padding: 1rem 2rem;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+
+.nav-links li a:hover {
+  color: #48bb78;
+}
+
+/* Mobile Menu */
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #2d3748;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 200px;
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    padding: 10px 0;
+  }
+}
+
+/* Profile Header */
+.profile-header {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.profile-header h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+}
+
+.profile-header p {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* Personal Details Section (Hidden/Collapsible) */
+.personal-details {
+  margin: 1.5rem auto;
+  padding: 1.2rem;
+  width: 90%;
+  max-width: 500px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.personal-details h3 {
+  font-size: 1.2rem;
+  color: #2d3748;
+  margin-bottom: 1rem;
+  cursor: pointer; /* Looks clickable */
+}
+
+.personal-details form {
+  display: none; /* Initially hidden */
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.personal-details.active form {
+  display: flex; /* Show when active */
+}
+
+.personal-details label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.personal-details input {
+  padding: 0.5rem;
+  margin-top: 5px;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.save-btn {
+  margin-top: 1rem;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  background: #48bb78;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.save-btn:hover {
+  background: #38a169;
+}
+
+/* Profile Options */
+.profile-options {
+  margin: 1.5rem auto;
+  padding: 1.2rem;
+  width: 90%;
+  max-width: 500px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-options h3 {
+  font-size: 1.1rem;
+  margin: 1rem 0 0.5rem;
+  color: #2d3748;
+}
+
+.profile-options ul {
+  list-style: none;
+  padding: 0;
+}
+
+.profile-options li {
+  padding: 0.6rem 0;
+  font-size: 0.95rem;
+  color: #4a5568;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.profile-options li:hover {
+  color: #48bb78;
+}

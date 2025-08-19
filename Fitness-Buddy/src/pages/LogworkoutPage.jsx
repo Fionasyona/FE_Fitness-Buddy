@@ -1,122 +1,93 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/LogWorkout.css";
 
 function LogWorkoutPage() {
-  const [workoutList, setWorkoutList] = useState([
-    {
-      id: 1,
-      name: "Sit Ups",
-      sets: []
-    },
-    {
-      id: 2,
-      name: "Push Ups",
-      sets: []
-    },
-  ]);
-
-  const [editingWorkoutId, setEditingWorkoutId] = useState(null);
-  const [editingWorkoutName, setEditingWorkoutName] = useState("");
-  const [setInputs, setSetInputs] = useState({});
-  const [activeWorkoutId, setActiveWorkoutId] = useState(null);
+  const [workoutList, setWorkoutList] = useState([]);
+  const [newWorkoutName, setNewWorkoutName] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
 
-  //add new workout
+  // ✅ Load existing workouts from localStorage
+  useEffect(() => {
+    const savedWorkouts = JSON.parse(localStorage.getItem("workoutList")) || [];
+    setWorkoutList(savedWorkouts);
+  }, []);
+
+  // ✅ Save workouts & summary to localStorage
+  useEffect(() => {
+    if (workoutList.length === 0) return;
+    
+    localStorage.setItem("workoutList", JSON.stringify(workoutList));
+
+    const totalWorkouts = workoutList.reduce(
+      (count, w) => count + w.exercises.length,
+      0
+    );
+    const totalCalories = workoutList.reduce(
+      (sum, w) =>
+        sum +
+        w.exercises.reduce(
+          (exSum, ex) =>
+            exSum +
+            ex.sets.reduce((s, set) => s + set.reps * set.weight * 0.1, 0),
+          0
+        ),
+      0
+    );
+
+    let progressData = JSON.parse(localStorage.getItem("workoutData")) || [];
+    if (progressData.length === 0) {
+      progressData.push({ totalWorkouts, totalCalories });
+    } else {
+      progressData[progressData.length - 1] = { totalWorkouts, totalCalories };
+    }
+    localStorage.setItem("workoutData", JSON.stringify(progressData));
+  }, [workoutList]);
+
+  // ✅ Add Workout
   function addWorkout() {
+    if (!newWorkoutName.trim()) return;
     const newWorkout = {
       id: Date.now(),
-      name: "New Workout",
-      sets: [],
+      name: newWorkoutName.trim(),
+      exercises: [],
     };
     setWorkoutList([...workoutList, newWorkout]);
+    setNewWorkoutName("");
   }
 
-  // removing workout
-  function removeWorkout(id) {
+  // ✅ Delete Workout
+  function deleteWorkout(id) {
     setWorkoutList(workoutList.filter((w) => w.id !== id));
-    setSetInputs((prev) => {
-      const updated = { ...prev };
-      delete updated[id];
-      return updated;
-    });
   }
 
-  //editing workout
-  function editWorkout(id, name) {
-    setEditingWorkoutId(id);
-    setEditingWorkoutName(name);
-  }
-
-  //saving workout
-  function saveWorkout(id) {
-    setWorkoutList(
-      workoutList.map((w) =>
-        w.id === id ? { ...w, name: editingWorkoutName } : w
-      )
-    );
-    setEditingWorkoutId(null);
-  }
-
-
-// toggleset status 
-  function toggleSetStatus(workoutId, index) {
-    setWorkoutList(
-      workoutList.map((w) => {
-        if (w.id === workoutId) {
-          const updatedSets = w.sets.map((set, i) =>
-            i === index
-              ? {
-                  ...set,
-                  status:
-                    set.status === "warmup"
-                      ? "completed"
-                      : set.status === "completed"
-                      ? "failed"
-                      : "warmup",
-                }
-              : set
-          );
-          return { ...w, sets: updatedSets };
-        }
-        return w;
-      })
-    );
-  }
-
-  function addSet(workoutId) {
-    const setData = setInputs[workoutId] || { sets: "", reps: "" };
-    if (!setData.sets || !setData.reps) return;
-
-    setWorkoutList(
-      workoutList.map((workout) =>
-        workoutId.id === workoutId
-          ? {
-              ...workout,
-              sets: [
-                ...workout.sets,
-                { sets: setData.sets, reps: setData.reps, status: "warmup" },
-              ],
-            }
-          : workout
-      )
-    );
-
-    setSetInputs((prev) => ({ ...prev, [workoutId]: { sets: "", reps: "" } }));
-    setActiveWorkoutId(null);
-  }
-
-  function removeSet(workoutId, index) {
+  // ✅ Add Exercise to a Workout
+  function addExercise(workoutId, exerciseName, weight, reps, sets) {
     setWorkoutList(
       workoutList.map((w) =>
         w.id === workoutId
-          ? { ...w, sets: w.sets.filter((_, i) => i !== index) }
+          ? {
+              ...w,
+              exercises: [
+                ...w.exercises,
+                {
+                  id: Date.now(),
+                  name: exerciseName,
+                  sets: Array.from({ length: sets }, (_, i) => ({
+                    id: Date.now() + i,
+                    weight: Number(weight),
+                    reps: Number(reps),
+                  })),
+                },
+              ],
+            }
           : w
       )
     );
   }
 
   return (
-    <div className="log-workout-container">
+    <div className="workout-logger">
+      {/* ✅ NAVBAR */}
       <nav className="navbar log-workout-navbar">
         <div className="logo">🏋️ MyFitnessApp</div>
         <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
@@ -130,10 +101,13 @@ function LogWorkoutPage() {
             <a href="/LoginPage">Login</a>
           </li>
           <li>
-            <a href="/SearchPage">Search</a>
+            <a href="/LogWorkoutPage">Log Workout</a>
           </li>
           <li>
-            <a href="/Progresspage">Progress</a>
+            <a href="/Searchpage">Search</a>
+          </li>
+          <li>
+            <a href="/ProgressPage">Progress</a>
           </li>
           <li>
             <a href="/ProfilePage">Profile</a>
@@ -141,141 +115,102 @@ function LogWorkoutPage() {
         </ul>
       </nav>
 
-      <div className="workout-logger">
-        <h1>Log Workout</h1>
+      <h1>Workout Logger</h1>
 
-        {/* Summary */}
-        <div className="summary-container">
-          <SummaryCard label="Duration" value="-" />
-          <SummaryCard label="Sets" value="-" />
-          <SummaryCard
-            label="Total Sets"
-            value={workoutList.reduce((sum, w) => sum + w.sets.length, 0)}
-          />
-        </div>
-
-        {/* Workout List */}
-        {workoutList.map((workout) => (
-          <div key={workout.id} className="workout-block">
-            <div className="workout-header">
-              {editingWorkoutId === workout.id ? (
-                <input
-                  value={editingWorkoutName}
-                  onChange={(e) => setEditingWorkoutName(e.target.value)}
-                />
-              ) : (
-                <h2>{workout.name}</h2>
-              )}
-
-              <div>
-                {editingWorkoutId === workout.id ? (
-                  <>
-                    <button onClick={() => saveWorkout(workout.id)}>💾</button>
-                    <button onClick={() => setEditingWorkoutId(null)}>
-                      ❌
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      onClick={() => editWorkout(workout.id, workout.name)}
-                    >
-                      ✏️
-                    </button>
-                    <button onClick={() => removeWorkout(workout.id)}>
-                      🗑️
-                    </button>
-                  </>
-                )}
-              </div>
-            </div>
-
-            {/* Set Rows */}
-            {workout.sets.map((set, idx) => (
-              <SetRow
-                key={idx}
-                sets={set.sets}
-                reps={set.reps}
-                status={set.status}
-                onToggleStatus={() => toggleSetStatus(workout.id, idx)}
-                onRemove={() => removeSet(workout.id, idx)}
-              />
-            ))}
-
-            {/* Add Set Form */}
-            {activeWorkoutId === workout.id ? (
-              <div className="add-set-form">
-                <input
-                  placeholder="Sets"
-                  type="number"
-                  value={setInputs[workout.id]?.sets || ""}
-                  onChange={(e) =>
-                    setSetInputs((prev) => ({
-                      ...prev,
-                      [workout.id]: {
-                        ...prev[workout.id],
-                        sets: e.target.value,
-                      },
-                    }))
-                  }
-                />
-                <input
-                  placeholder="Reps"
-                  type="number"
-                  value={setInputs[workout.id]?.reps || ""}
-                  onChange={(e) =>
-                    setSetInputs((prev) => ({
-                      ...prev,
-                      [workout.id]: {
-                        ...prev[workout.id],
-                        reps: e.target.value,
-                      },
-                    }))
-                  }
-                />
-                <button onClick={() => addSet(workout.id)}>✔️</button>
-              </div>
-            ) : (
-              <button onClick={() => setActiveWorkoutId(workout.id)}>
-                ➕ Add Set
-              </button>
-            )}
-          </div>
-        ))}
-
+      {/* ✅ Add Workout */}
+      <div className="add-workout-form">
+        <input
+          type="text"
+          placeholder="Enter workout name (e.g. Chest Day)..."
+          value={newWorkoutName}
+          onChange={(e) => setNewWorkoutName(e.target.value)}
+        />
         <button className="add-workout-btn" onClick={addWorkout}>
           ➕ Add Workout
         </button>
       </div>
+
+      {/* ✅ Workout List */}
+      {workoutList.map((workout) => (
+        <div key={workout.id} className="workout-block">
+          <div className="workout-header">
+            <h2>{workout.name}</h2>
+            <button
+              className="delete-btn"
+              onClick={() => deleteWorkout(workout.id)}
+            >
+              ❌
+            </button>
+          </div>
+
+          {/* ✅ Exercises */}
+          {workout.exercises.map((exercise) => (
+            <div key={exercise.id} className="exercise-block">
+              <h3>🏋️ {exercise.name}</h3>
+              {exercise.sets.map((set) => (
+                <div key={set.id} className="set-row">
+                  <div>{set.weight} kg</div>
+                  <div>{set.reps} reps</div>
+                </div>
+              ))}
+            </div>
+          ))}
+
+          {/* ✅ Add Exercise Form */}
+          <AddExerciseForm
+            onAdd={(n, w, r, s) => addExercise(workout.id, n, w, r, s)}
+          />
+        </div>
+      ))}
     </div>
   );
 }
 
-function SummaryCard({ label, value }) {
-  return (
-    <div className="summary-card">
-      <p>{label}</p>
-      <p>{value}</p>
-    </div>
-  );
-}
+// ✅ Sub-component: Add Exercise Form
+function AddExerciseForm({ onAdd }) {
+  const [exerciseName, setExerciseName] = useState("");
+  const [weight, setWeight] = useState("");
+  const [reps, setReps] = useState("");
+  const [sets, setSets] = useState("");
 
-function SetRow({ sets, reps, status, onToggleStatus, onRemove }) {
-  let statusClass =
-    status === "warmup"
-      ? "label-warmup"
-      : status === "completed"
-      ? "label-completed"
-      : "label-failed";
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!exerciseName || !weight || !reps || !sets) return;
+    onAdd(exerciseName, weight, reps, sets);
+    setExerciseName("");
+    setWeight("");
+    setReps("");
+    setSets("");
+  }
 
   return (
-    <div className="set-row">
-      <div>{sets}</div>
-      <div>{reps}</div>
-      <div className={statusClass}>{status}</div>
-      <button onClick={onToggleStatus}>🔄</button>
-      <button onClick={onRemove}>❌</button>
-    </div>
+    <form className="add-exercise-form" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Exercise Name"
+        value={exerciseName}
+        onChange={(e) => setExerciseName(e.target.value)}
+      />
+      <input
+        type="number"
+        placeholder="Weight (kg)"
+        value={weight}
+        onChange={(e) => setWeight(e.target.value)}
+      />
+      <input
+        type="number"
+        placeholder="Reps"
+        value={reps}
+        onChange={(e) => setReps(e.target.value)}
+      />
+      <input
+        type="number"
+        placeholder="Sets"
+        value={sets}
+        onChange={(e) => setSets(e.target.value)}
+      />
+      <button type="submit">Add Exercise</button>
+    </form>
   );
 }
 

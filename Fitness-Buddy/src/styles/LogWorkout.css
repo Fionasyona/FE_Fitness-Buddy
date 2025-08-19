@@ -15,6 +15,7 @@
   font-weight: bold;
 }
 
+/* ---------------- SUMMARY ---------------- */
 .summary-container {
   display: flex;
   justify-content: space-around;
@@ -43,6 +44,7 @@
   font-size: 1.2rem;
 }
 
+/* ---------------- WORKOUT BLOCK ---------------- */
 .workout-block {
   background: #ffffff;
   border: 2px solid #cbd5e0;
@@ -80,6 +82,7 @@
 .save-btn:hover { color: #38a169; }
 .delete-btn:hover { color: #e53e3e; }
 
+/* ---------------- SETS ---------------- */
 .set-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr auto auto;
@@ -107,7 +110,7 @@
   font-weight: bold;
 }
 
-
+/* ---------------- ADD SET ---------------- */
 .add-set-form {
   margin-top: 0.8rem;
   display: flex;
@@ -134,9 +137,27 @@
   background: #2f855a;
 }
 
+/* ---------------- ADD WORKOUT ---------------- */
+.add-workout-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.add-workout-form input,
+.add-workout-form select {
+  padding: 0.4rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 1rem;
+  flex: 1;
+  min-width: 180px;
+}
+
 .add-workout-btn {
-  display: block;
-  margin: 1rem auto;
   background: #2b6cb0;
   color: white;
   border: none;
@@ -150,6 +171,7 @@
   background: #2c5282;
 }
 
+/* ---------------- NAVBAR ---------------- */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -189,6 +211,7 @@
   cursor: pointer;
 }
 
+/* ---------------- RESPONSIVE ---------------- */
 @media (max-width: 768px) {
   .menu-icon {
     display: block;
@@ -214,7 +237,6 @@
   }
 }
 
-
 @media (max-width: 600px) {
   .summary-container {
     flex-direction: column;
@@ -231,6 +253,17 @@
 
   .add-set-form input,
   .add-set-form button {
+    width: 100%;
+  }
+
+  .add-workout-form {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .add-workout-form input,
+  .add-workout-form select,
+  .add-workout-btn {
     width: 100%;
   }
 }

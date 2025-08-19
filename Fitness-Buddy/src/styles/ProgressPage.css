@@ -1,107 +1,78 @@
 .progress-page {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem;
-  background: linear-gradient(to bottom, #f9fafb, #edf2f7);
-  border-radius: 12px;
+  padding: 1.5rem;
+  background: linear-gradient(to bottom, #f8f9fa, #edf2f7);
+  border-radius: 10px;
   font-family: Arial, sans-serif;
 }
 
-/* Title */
 .progress-page h1 {
   text-align: center;
   color: #2b6cb0;
-  margin-bottom: 1.5rem;
-  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
   font-weight: bold;
 }
 
 .progress-page p {
   text-align: center;
-  font-size: 1.1rem;
   color: #4a5568;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
-/* Summary section (Steps, Calories, Distance, Floors, Time) */
-.summary-grid {
-  display: flex;
-  justify-content: space-around;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-}
-
-.summary-card {
-  background: white;
-  border: 2px solid #cbd5e0;
-  border-radius: 10px;
-  padding: 1rem;
-  min-width: 120px;
+.progress-page h2 {
   text-align: center;
-  flex: 1;
-  transition: transform 0.2s ease;
-}
-
-.summary-card:hover {
-  transform: translateY(-4px);
-}
-
-.summary-card h3 {
-  font-size: 1rem;
-  color: #4a5568;
-  margin-bottom: 0.5rem;
-}
-
-.summary-card p {
-  color: #2b6cb0;
-  font-size: 1.4rem;
-  font-weight: bold;
-}
-
-/* Chart containers */
-.chart-container {
-  margin: 2rem auto;
-  padding: 1rem;
-  background: white;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-  max-width: 700px;
-}
-
-.chart-container h2 {
-  text-align: center;
-  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
   color: #2d3748;
-  margin-bottom: 1rem;
 }
 
-/* Button */
-.add-btn {
+.progress-page button {
   display: block;
   margin: 1rem auto;
   background: #2b6cb0;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
-.add-btn:hover {
+.progress-page button:hover {
   background: #2c5282;
 }
 
-/* Responsive */
+/* Chart containers */
+.chart-container {
+  background: #ffffff;
+  border: 2px solid #cbd5e0;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1.5rem auto;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
+  width: 90%;
+  max-width: 650px;
+}
+
+/* Navbar override */
+.log-workout-navbar {
+  margin-bottom: 1.5rem;
+}
+
+/* Mobile responsiveness */
 @media (max-width: 768px) {
-  .summary-grid {
-    flex-direction: column;
+  .chart-container {
+    width: 100%;
+    padding: 0.8rem;
   }
 
-  .chart-container {
+  .progress-page h1 {
+    font-size: 1.5rem;
+  }
+
+  .progress-page button {
     width: 100%;
   }
 }

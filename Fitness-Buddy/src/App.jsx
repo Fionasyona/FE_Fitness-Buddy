@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import LogWorkoutPage from "./pages/LogWorkoutPage";
 import SearchPage from "./pages/SearchPage";
 import ProgressPage from "./pages/ProgressPage";
+import ProfilePage from "./pages/ProfilePage"; // Importing ProfilePage
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path="/LogWorkoutPage" element={<LogWorkoutPage />} />
       <Route path="/SearchPage" element={<SearchPage />} />
       <Route path="/ProgressPage" element={<ProgressPage />} /> 
+      <Route path="/ProfilePage" element={<ProfilePage />} />
     </Routes>
   );
 }

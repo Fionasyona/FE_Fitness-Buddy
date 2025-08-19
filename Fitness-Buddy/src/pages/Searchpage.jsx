@@ -1,29 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../styles/SearchPage.css";
 
-// Example exercise data 
-const exercisesData = [
-  { id: 1, name: "Push Up", muscle: "Chest" },
-  { id: 2, name: "Squat", muscle: "Legs" },
-  { id: 3, name: "Plank", muscle: "Core" },
-  { id: 4, name: "Bicep Curl", muscle: "Arms" },
-  { id: 5, name: "Lunges", muscle: "Legs" },
-  { id: 6, name: "Shoulder Press", muscle: "Shoulders" },
-];
-
 export default function SearchPage() {
-  // State for storing what the user types
+  // State for storing search input
   const [query, setQuery] = useState("");
 
-  // State for mobile menu toggle
+  // State for exercises fetched from API
+  const [exercises, setExercises] = useState([]);
+
+  // State for menu toggle
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Filter exercises based on search query
-  const filteredExercises = exercisesData.filter(
-    (exercise) =>
-      exercise.name.toLowerCase().includes(query.toLowerCase()) ||
-      exercise.muscle.toLowerCase().includes(query.toLowerCase())
-  );
+  // State for loading and errors
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  // Fetch exercises by muscle group from WGER API
+  useEffect(() => {
+    if (!query) {
+      setExercises([]); // Clear when query is empty
+      return;
+    }
+
+    const fetchExercises = async () => {
+      try {
+        setLoading(true);
+        setError("");
+        const response = await axios.get(
+          `https://wger.de/api/v2/exercise/?muscle=${query}&language=2&limit=20`
+        );
+        setExercises(response.data.results);
+      } catch (err) {
+        console.error(err);
+        setError("Failed to fetch exercises. Try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchExercises();
+  }, [query]);
 
   return (
     <div className="search-page-container">
@@ -57,29 +74,35 @@ export default function SearchPage() {
       </nav>
 
       {/* Page title */}
-      <h1 className="title">Search Exercises</h1>
+      <h1 className="title">Search Exercises by Muscle Group</h1>
 
-      {/* Search bar */}
+      {/* Search input (expects a muscle ID) */}
       <input
         type="text"
-        placeholder="Search by name or muscle group..."
+        placeholder="Enter muscle ID (e.g., 1 for biceps)..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         className="search-input"
       />
 
-      {/* Display search results */}
+      {/* Display results */}
       <div className="grid-container">
-        {filteredExercises.length > 0 ? (
-          filteredExercises.map((exercise) => (
-            <div key={exercise.id} className="card">
-              <h2 className="card-title">{exercise.name}</h2>
-              <p className="card-muscle">{exercise.muscle}</p>
-            </div>
-          ))
-        ) : (
-          <p className="no-results">No exercises found for "{query}"</p>
-        )}
+        {loading && <p>Loading exercises...</p>}
+        {error && <p className="error">{error}</p>}
+
+        {!loading && exercises.length > 0
+          ? exercises.map((exercise) => (
+              <div key={exercise.id} className="card">
+                <h2 className="card-title">{exercise.name}</h2>
+                <p className="card-muscle">
+                  {exercise.description || "No description available"}
+                </p>
+              </div>
+            ))
+          : !loading &&
+            !error &&
+            query &&
+            exercises.length === 0 && <p>No exercises found.</p>}
       </div>
     </div>
   );

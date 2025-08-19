@@ -4,6 +4,7 @@ import WelcomePage from "./pages/WelcomePage";
 import LoginPage from "./pages/LoginPage";
 import LogWorkoutPage from "./pages/LogWorkoutPage";
 import SearchPage from "./pages/SearchPage";
+import ProgressPage from "./pages/ProgressPage";
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
       <Route path="/" element={<WelcomePage />} />
       <Route path="/LoginPage" element={<LoginPage />}/>
       <Route path="/LogWorkoutPage" element={<LogWorkoutPage />} />
-      <Route path="/SearchPage" element={<SearchPage/>}/>
+      <Route path="/SearchPage" element={<SearchPage />} />
+      <Route path="/ProgressPage" element={<ProgressPage />} /> 
     </Routes>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/SearchPage.css"; // Import the CSS for this page only
+import "../styles/SearchPage.css";
 
 // Example exercise data 
 const exercisesData = [

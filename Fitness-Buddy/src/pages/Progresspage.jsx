@@ -1,74 +1,97 @@
-import React, { useState, useEffect, useRef } from "react";
-import "../styles/Progresspage.css";
-import {Chart as ChartJS,  LineController,
-  LineElement,
-  BarController,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import React, { useState } from "react";
+import { Line, Bar } from "react-chartjs-2";
+import "../styles/ProgressPage.css";
 
-ChartJS.register(
-  LineController,
-  LineElement,
-  BarController,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend
-);
+function ProgressPage() {
+  const [labels, setLabels] = useState(["Week 1", "Week 2", "Week 3"]);
+  const [workouts, setWorkouts] = useState([3, 5, 2]);
+    const [calories, setCalories] = useState([1200, 1500, 1000]);
+     const [menuOpen, setMenuOpen] = useState(false);
 
-const sampleWorkouts = [
-  {
-    id: 1,
-    date: "2023-06-01",
-    duration: "45 min",
-    exercises: [
-      { name: "Bench Press", sets: 3, reps: 10, weight: "135 lbs" },
-      { name: "Squats", sets: 4, reps: 8, weight: "185 lbs" },
-      { name: "Pull-ups", sets: 3, reps: 12, weight: "Bodyweight" },
+  // Function to add a new random workout for the next week
+  function addWorkout() {
+    const nextWeek = `Week ${labels.length + 1}`;
+    setLabels([...labels, nextWeek]);
+    setWorkouts([...workouts, Math.floor(Math.random() * 5) + 1]);
+    setCalories([...calories, Math.floor(Math.random() * 1000) + 1000]);
+  }
+
+  // Line chart data (Workouts & Calories)
+  const lineData = {
+    labels,
+    datasets: [
+      {
+        label: "Workouts",
+        data: workouts,
+        borderColor: "blue",
+        backgroundColor: "lightblue",
+      },
+      {
+        label: "Calories Burned",
+        data: calories,
+        borderColor: "red",
+        backgroundColor: "pink",
+      },
     ],
-    calories: 420,
-    type: "Strength",
-  },
-  {
-    id: 2,
-    date: "2023-06-03",
-    duration: "30 min",
-    exercises: [
-      { name: "Running", distance: "3.5 miles", pace: "8:30 min/mile" },
-      { name: "Plank", duration: "3 min" },
+  };
+
+  // Bar chart data (Workouts only)
+  const barData = {
+    labels,
+    datasets: [
+      {
+        label: "Workouts",
+        data: workouts,
+        backgroundColor: "purple",
+      },
     ],
-    calories: 380,
-    type: "Cardio",
-  },
-];
+  };
 
-const sampleWeightData = {
-  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-  data: [180, 176, 174, 172, 170, 168],
-};
+  return (
+    <div className="progress-page">
+      <nav className="navbar log-workout-navbar">
+        <div className="logo">🏋️ MyFitnessApp</div>
+        <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
+          ☰
+        </div>
+        <ul className={`nav-links ${menuOpen ? "active" : ""}`}>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/LoginPage">Login</a>
+          </li>
+          <li>
+            <a href="/LogWorkoutPage">Log Workout</a>
+          </li>
+          <li>
+            <a href="/Searchpage">Search</a>
+          </li>
+          <li>
+            <a href="/ProfilePage">Profile</a>
+          </li>
+        </ul>
+      </nav>
 
-const sampleCalorieData = {
-  labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-  burned: [420, 380, 450, 400, 480, 350, 500],
-  consumed: [2200, 2100, 2300, 2400, 2100, 2500, 2000],
-};
+      <h1>Progress Page</h1>
+      <p>Track your fitness journey here!</p>
 
-const sampleWorkoutFrequency = {
-  labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
-  data: [3, 4, 5, 6],
-};
+      {/* Button to add workouts */}
+      <button onClick={addWorkout}>Add Random Workout</button>
 
-const sampleBodyComposition = {
-  muscleGain: 3.2,
-  fatLoss: 2.8,
-};
+      {/* Line Chart */}
+      <div style={{ width: "600px", margin: "20px auto" }}>
+        <h2>Workouts vs Calories</h2>
+        <Line data={lineData} />
+      </div>
 
+      {/* Bar Chart */}
+      <div style={{ width: "600px", margin: "20px auto" }}>
+        <h2>Workouts Overview</h2>
+        <Bar data={barData} />
+      </div>
+    </div>
+  );
+}
+
+export default ProgressPage;

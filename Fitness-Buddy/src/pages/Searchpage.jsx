@@ -62,7 +62,7 @@ export default function SearchPage() {
     <div className="search-page-container">
       {/* Navbar */}
       <nav className="navbar SearchPage-navbar">
-        <div className="logo">🏋️ MyFitnessApp</div>
+        <div className="logo">📈 MyFitnessApp</div>
 
         <div className="menu-icon" onClick={() => setMenuOpen((prev) => !prev)}>
           ☰

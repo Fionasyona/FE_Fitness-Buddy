@@ -27,7 +27,7 @@ function ProfilePage() {
     <div className="profile-page">
       {/* ✅ Navbar */}
       <nav className="navbar profile-navbar">
-        <div className="logo">🏋️ MyFitnessApp</div>
+        <div className="logo">📈 MyFitnessApp</div>
         <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
           ☰
         </div>
@@ -56,59 +56,58 @@ function ProfilePage() {
         <p>Fitness Enthusiast</p>
       </div>
 
-      {/* ✅ Toggle Personal Details */}
-      <div className="personal-details-toggle">
-        <h3 onClick={() => setShowDetails(!showDetails)}>
-          Personal Details {showDetails ? "▲" : "▼"}
-        </h3>
-
-        {showDetails && (
-          <form className="personal-details-form">
-            <label>
-              Weight:
-              <input
-                type="text"
-                name="weight"
-                value={details.weight}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Height:
-              <input
-                type="text"
-                name="height"
-                value={details.height}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              BMI:
-              <input
-                type="text"
-                name="bmi"
-                value={details.bmi}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Target Weight:
-              <input
-                type="text"
-                name="targetWeight"
-                value={details.targetWeight}
-                onChange={handleChange}
-              />
-            </label>
-            <button type="button" onClick={handleSave} className="save-btn">
-              Save Details
-            </button>
-          </form>
-        )}
-      </div>
-
-      {/* Profile Options */}
+      {/* ✅ All Options + Personal Details in SAME Container */}
       <div className="profile-options">
+        {/* Personal Details */}
+        <h2 onClick={() => setShowDetails(!showDetails)}>
+          Personal Details {showDetails ? "▲" : "▼"}
+        </h2>
+
+        <form
+          className={`personal-details-form ${showDetails ? "active" : ""}`}
+        >
+          <label>
+            Weight:
+            <input
+              type="text"
+              name="weight"
+              value={details.weight}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            Height:
+            <input
+              type="text"
+              name="height"
+              value={details.height}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            BMI:
+            <input
+              type="text"
+              name="bmi"
+              value={details.bmi}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            Target Weight:
+            <input
+              type="text"
+              name="targetWeight"
+              value={details.targetWeight}
+              onChange={handleChange}
+            />
+          </label>
+          <button type="button" onClick={handleSave} className="save-btn">
+            Save Details
+          </button>
+        </form>
+
+        {/* Other Options */}
         <h3>Account</h3>
         <ul>
           <li>⚙️ Settings</li>

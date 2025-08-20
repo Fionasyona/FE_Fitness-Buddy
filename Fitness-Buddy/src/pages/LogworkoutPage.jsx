@@ -19,27 +19,27 @@ function LogWorkoutPage() {
     localStorage.setItem("workoutList", JSON.stringify(workoutList));
 
     const totalWorkouts = workoutList.reduce(
-      (count, w) => count + w.exercises.length,
+      (sum, w) => sum + w.exercises.length,
       0
     );
     const totalCalories = workoutList.reduce(
       (sum, w) =>
         sum +
         w.exercises.reduce(
-          (exSum, ex) =>
-            exSum +
-            ex.sets.reduce((s, set) => s + set.reps * set.weight * 0.1, 0),
+          (s, ex) =>
+            s +
+            ex.sets.reduce((ss, set) => ss + set.reps * set.weight * 0.1, 0),
           0
         ),
       0
     );
 
     let progressData = JSON.parse(localStorage.getItem("workoutData")) || [];
-    if (progressData.length === 0) {
-      progressData.push({ totalWorkouts, totalCalories });
-    } else {
-      progressData[progressData.length - 1] = { totalWorkouts, totalCalories };
-    }
+    progressData.push({
+      date: new Date().toISOString(),
+      totalWorkouts,
+      totalCalories,
+    });
     localStorage.setItem("workoutData", JSON.stringify(progressData));
   }, [workoutList]);
 
@@ -89,7 +89,7 @@ function LogWorkoutPage() {
     <div className="workout-logger">
       {/* ✅ NAVBAR */}
       <nav className="navbar log-workout-navbar">
-        <div className="logo">🏋️ MyFitnessApp</div>
+        <div className="logo"> 📈 MyFitnessApp</div>
         <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
           ☰
         </div>
@@ -99,9 +99,6 @@ function LogWorkoutPage() {
           </li>
           <li>
             <a href="/LoginPage">Login</a>
-          </li>
-          <li>
-            <a href="/LogWorkoutPage">Log Workout</a>
           </li>
           <li>
             <a href="/Searchpage">Search</a>

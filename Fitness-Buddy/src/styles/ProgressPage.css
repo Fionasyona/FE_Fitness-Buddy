@@ -1,78 +1,124 @@
+/* ProgressPage.css */
+
 .progress-page {
+  padding: 2rem;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 1.5rem;
-  background: linear-gradient(to bottom, #f8f9fa, #edf2f7);
-  border-radius: 10px;
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fa;
+  min-height: 100vh;
 }
 
-.progress-page h1 {
-  text-align: center;
-  color: #2b6cb0;
-  margin-bottom: 0.5rem;
-  font-size: 2rem;
+/* ---------------- NAVBAR ---------------- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2d3748;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.4rem;
   font-weight: bold;
 }
 
-.progress-page p {
-  text-align: center;
-  color: #4a5568;
-  margin-bottom: 1.5rem;
+.menu-icon {
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: none; /* hidden on desktop */
 }
 
-.progress-page h2 {
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links li a:hover {
+  color: #48bb78;
+}
+
+/* Mobile menu */
+.nav-links.active {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  background: #2d3748;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-links li {
+    margin: 0.5rem 0;
+  }
+}
+
+/* ---------------- MAIN CONTENT ---------------- */
+h1 {
   text-align: center;
-  margin-bottom: 0.8rem;
+  margin-top: 2rem;
+  font-size: 2.2rem;
   color: #2d3748;
 }
 
-.progress-page button {
-  display: block;
-  margin: 1rem auto;
-  background: #2b6cb0;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.progress-page button:hover {
-  background: #2c5282;
-}
-
-/* Chart containers */
-.chart-container {
-  background: #ffffff;
-  border: 2px solid #cbd5e0;
-  border-radius: 10px;
+.progress-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
   padding: 1rem;
-  margin: 1.5rem auto;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
-  width: 90%;
-  max-width: 650px;
 }
 
-/* Navbar override */
-.log-workout-navbar {
-  margin-bottom: 1.5rem;
+.progress-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  .chart-container {
-    width: 100%;
-    padding: 0.8rem;
-  }
+.progress-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
 
-  .progress-page h1 {
-    font-size: 1.5rem;
-  }
+.progress-card h2 {
+  margin-bottom: 0.5rem;
+  color: #4a90e2;
+  font-size: 1.3rem;
+}
 
-  .progress-page button {
-    width: 100%;
-  }
+.progress-card p {
+  margin: 0.4rem 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.progress-card strong {
+  color: #222;
 }

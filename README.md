@@ -37,5 +37,18 @@ A simple React-based fitness tracker that helps users log workouts, manage exerc
 - Option to **remove sets** or entire workouts.
 - Styled with a transparent navbar to integrate with the background image.
 
+### 4. ProfilePage
+- View and edit personal details (weight, height, BMI, target weight).
+- Toggle visibility of details.
+- Account, community, and support options.
+
+### 5. ProgressPage
+- Visualize workout history and progress.
+- Cards display metrics, exercises, and performance.
+- Styled for readability and mobile responsiveness.
+
+### 6. SearchPage
+- Allows users to search exercises or workouts.
+- Responsive layout and interactive search results.
 
 
